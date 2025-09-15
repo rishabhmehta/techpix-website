@@ -15,7 +15,7 @@ export interface ButtonProps
 }
 
 const base =
-  'inline-flex items-center justify-center whitespace-nowrap rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 disabled:opacity-50 disabled:pointer-events-none gap-2';
+  'inline-flex items-center justify-center whitespace-nowrap rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40 disabled:opacity-50 disabled:pointer-events-none gap-2 cursor-pointer';
 
 const variants: Record<string, string> = {
   default:
