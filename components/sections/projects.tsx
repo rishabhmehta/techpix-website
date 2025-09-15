@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge';
+import SpotlightCard from '@/components/SpotlightCard';
 
 type Project = {
   name: string;
@@ -155,9 +156,10 @@ export function ProjectsSection() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {PROJECTS.map((p) => (
-          <div
+          <SpotlightCard
             key={p.name}
-            className="group bg-card/60 hover:border-primary/40 rounded-xl border p-5 shadow-sm backdrop-blur-sm transition"
+            className="bg-card/60 hover:border-primary/40 rounded-xl border p-5 shadow-sm backdrop-blur-sm transition"
+            spotlightColor="primary"
           >
             <h3 className="text-base leading-tight font-semibold">{p.name}</h3>
             <p className="text-muted-foreground mt-1 text-xs md:text-sm">
@@ -173,7 +175,7 @@ export function ProjectsSection() {
                 </span>
               ))}
             </div>
-          </div>
+          </SpotlightCard>
         ))}
       </div>
     </section>
