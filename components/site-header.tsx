@@ -16,6 +16,30 @@ export function SiteHeader() {
             Services
           </Link>
           <Link
+            href="#process"
+            className="text-muted-foreground hover:text-foreground transition"
+          >
+            Process
+          </Link>
+          <Link
+            href="#projects"
+            className="text-muted-foreground hover:text-foreground transition"
+          >
+            Projects
+          </Link>
+          <Link
+            href="#team"
+            className="text-muted-foreground hover:text-foreground transition"
+          >
+            Team
+          </Link>
+          <Link
+            href="#contact"
+            className="text-muted-foreground hover:text-foreground transition"
+          >
+            Contact
+          </Link>
+          <Link
             href="#cta"
             className="text-muted-foreground hover:text-foreground transition"
           >

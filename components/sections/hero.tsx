@@ -1,3 +1,4 @@
+'use client';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Rocket, Sparkles } from 'lucide-react';
@@ -55,12 +56,24 @@ export function HeroSection() {
           apps, backend services, ERPs and data‑rich dashboards.
         </p>
         <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <Button className="shadow-primary/25 gap-2 text-sm shadow-md md:text-base">
+          <Button
+            className="shadow-primary/25 gap-2 text-sm shadow-md md:text-base"
+            onClick={() => {
+              document
+                .getElementById('cta')
+                ?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
             <Rocket className="size-4" /> Start a Project
           </Button>
           <Button
             variant="outline"
             className="border-primary/40 text-primary hover:border-primary/60 hover:bg-primary/10 text-sm md:text-base"
+            onClick={() => {
+              document
+                .getElementById('projects')
+                ?.scrollIntoView({ behavior: 'smooth' });
+            }}
           >
             View Work
           </Button>
