@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
-import './PillNav.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -251,17 +250,21 @@ const PillNav: React.FC<PillNavProps> = ({
     ['--hover-text']: hoveredPillTextColor,
     ['--pill-text']: resolvedPillTextColor,
     ['--highlight']: highlightColor,
+    ['--nav-h']: '42px',
+    ['--logo']: '36px',
+    ['--pill-pad-x']: '18px',
+    ['--pill-gap']: '3px',
   } as React.CSSProperties;
 
   return (
-    <div className="pill-nav-container">
+    <div className="fixed top-4 left-0 z-[99] w-full px-4 md:left-1/2 md:w-max md:-translate-x-1/2">
       <nav
-        className={`pill-nav ${className}`}
+        className={`box-border flex w-full items-center justify-between md:w-max md:justify-start ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
         <Link
-          className="pill-logo mr-2"
+          className="mr-2 inline-flex h-[var(--nav-h)] w-[var(--nav-h)] items-center justify-center overflow-hidden rounded-full bg-[var(--base,var(--muted))] p-2"
           href={items[0].href}
           aria-label="Home"
           onMouseEnter={handleLogoEnter}
@@ -279,31 +282,48 @@ const PillNav: React.FC<PillNavProps> = ({
           />
         </Link>
 
-        <div className="pill-nav-items desktop-only" ref={navItemsRef}>
-          <ul className="pill-list" role="menubar">
+        <div
+          className="relative hidden h-[var(--nav-h)] items-center rounded-full border border-[var(--border)] [box-shadow:0_6px_16px_color-mix(in_oklab,var(--color-ring),transparent_88%)] [background:var(--base,var(--background))] md:flex dark:[border-color:color-mix(in_oklab,var(--border),transparent_20%)] dark:[box-shadow:0_4px_12px_rgba(0,0,0,0.18)] dark:[background:var(--base,var(--muted))]"
+          ref={navItemsRef}
+        >
+          <ul
+            className="m-0 flex h-full list-none items-stretch [gap:var(--pill-gap)] p-[3px]"
+            role="menubar"
+          >
             {items.map((item, i) => (
               <li key={item.href} role="none">
                 <Link
                   role="menuitem"
                   href={item.href}
-                  className={`pill${activeHref === item.href ? 'is-active' : ''}`}
+                  className="relative inline-flex h-full cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[var(--pill-bg,var(--card))] px-[var(--pill-pad-x)] text-[14px] leading-[0] font-medium whitespace-nowrap text-[var(--pill-text,var(--card-foreground))] dark:border dark:border-[var(--border)] dark:bg-[var(--background)]"
                   aria-label={item.ariaLabel || item.label}
                   onMouseEnter={() => handleEnter(i)}
                   onMouseLeave={() => handleLeave(i)}
                 >
                   <span
-                    className="hover-circle"
+                    className="hover-circle pointer-events-none absolute bottom-0 left-1/2 z-[1] rounded-full will-change-transform [background:var(--highlight,var(--primary))]"
                     aria-hidden="true"
                     ref={(el) => {
                       circleRefs.current[i] = el;
                     }}
                   />
-                  <span className="label-stack">
-                    <span className="pill-label">{item.label}</span>
-                    <span className="pill-label-hover" aria-hidden="true">
+                  <span className="label-stack relative z-[2] inline-block leading-none">
+                    <span className="pill-label relative z-[2] inline-block leading-none will-change-transform">
+                      {item.label}
+                    </span>
+                    <span
+                      className="pill-label-hover absolute top-0 left-0 z-[3] inline-block text-[var(--hover-text,var(--primary-foreground))] will-change-[transform,opacity]"
+                      aria-hidden="true"
+                    >
                       {item.label}
                     </span>
                   </span>
+                  {activeHref === item.href && (
+                    <span
+                      aria-hidden="true"
+                      className="absolute -bottom-[6px] left-1/2 z-[4] h-3 w-3 -translate-x-1/2 rounded-full [background:var(--highlight,var(--primary))]"
+                    />
+                  )}
                 </Link>
               </li>
             ))}
@@ -311,13 +331,13 @@ const PillNav: React.FC<PillNavProps> = ({
         </div>
 
         <button
-          className="mobile-menu-button mobile-only"
+          className="relative flex h-[var(--nav-h)] w-[var(--nav-h)] items-center justify-center gap-1 rounded-full [background:var(--base,var(--muted))] md:hidden"
           onClick={toggleMobileMenu}
           aria-label="Toggle menu"
           ref={hamburgerRef}
         >
-          <span className="hamburger-line" />
-          <span className="hamburger-line" />
+          <span className="hamburger-line block h-[2px] w-4 origin-center rounded transition-all duration-75 [background:var(--pill-text,var(--card-foreground))]" />
+          <span className="hamburger-line block h-[2px] w-4 origin-center rounded transition-all duration-75 [background:var(--pill-text,var(--card-foreground))]" />
         </button>
         <div className="ml-2">
           <ThemeToggle />
@@ -325,16 +345,16 @@ const PillNav: React.FC<PillNavProps> = ({
       </nav>
 
       <div
-        className="mobile-menu-popover mobile-only"
+        className="absolute top-[3em] right-4 left-4 z-[998] rounded-[27px] opacity-0 [box-shadow:0_8px_32px_rgba(0,0,0,0.12)] [background:var(--popover)] md:hidden"
         ref={mobileMenuRef}
         style={cssVars}
       >
-        <ul className="mobile-menu-list">
+        <ul className="m-0 flex list-none flex-col gap-[3px] p-[3px]">
           {items.map((item) => (
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`mobile-menu-link${activeHref === item.href ? 'is-active' : ''}`}
+                className="block rounded-[50px] bg-[var(--pill-bg,var(--card))] px-4 py-3 text-[14px] font-medium text-[var(--pill-text,var(--card-foreground))] transition-all duration-200 hover:[background-color:var(--highlight,var(--primary))] hover:text-[var(--hover-text,var(--primary-foreground))] dark:border dark:border-[var(--border)] dark:bg-[var(--background)]"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {item.label}
