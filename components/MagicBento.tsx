@@ -703,7 +703,7 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                       {card.headline}
                     </h3>
                     <p
-                      className="text-xs leading-tight opacity-90"
+                      className="max-w-80 text-xs leading-tight opacity-90"
                       style={
                         textAutoHide
                           ? ({
