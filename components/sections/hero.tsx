@@ -44,16 +44,18 @@ export function HeroSection() {
         <Badge variant="accent" className="gap-1">
           <Sparkles className="size-3" /> Building Digital Experiences
         </Badge>
-        <p className="text-primary/80 dark:text-primary/70 text-xs font-medium tracking-[0.25em]">
-          YOUR EXPONENTIAL GROWTH PARTNER
+        <p className="text-primary/80 dark:text-primary/70 text-xs font-medium tracking-[0.15em]">
+          You grow your business. We’ll build scalable AI products fast.
         </p>
+
         <h1 className="from-foreground via-foreground to-foreground/80 max-w-5xl bg-gradient-to-b bg-clip-text font-serif text-4xl leading-tight font-bold tracking-tight text-balance text-transparent md:text-5xl lg:text-6xl">
           Engineering Websites, Mobile Apps & Real‑time Platforms
         </h1>
+
         <p className="text-muted-foreground max-w-2xl text-sm leading-relaxed text-balance md:text-base">
-          Techpix is a product engineering studio crafting fast, scalable and
-          delightful software: marketing sites, SaaS web apps, iOS & Android
-          apps, backend services, ERPs and data‑rich dashboards.
+          From idea to launch, we design and deliver end-to-end digital products
+          with speed, reliability, and advanced tech — so you can scale with
+          confidence.
         </p>
         <div className="flex flex-col items-center gap-4 sm:flex-row">
           <Button
@@ -82,8 +84,8 @@ export function HeroSection() {
           {[
             ['50+ Projects', 'Delivered across domains'],
             ['<150ms', 'Global median response time'],
-            ['99.95% Uptime', 'Reliability focused'],
-            ['Senior Team', 'Craft + speed'],
+            ['99.95% Uptime', 'for mission-critical systems'],
+            ['Senior Team', 'balancing Craft + speed'],
           ].map(([stat, label]) => (
             <li
               key={stat}

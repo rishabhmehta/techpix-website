@@ -1,43 +1,43 @@
 'use client';
-import { useRef, useEffect, useCallback, useState } from 'react';
+import React, { useRef, useEffect, useCallback, useState } from 'react';
 import { gsap } from 'gsap';
-import './MagicBento.css';
+import { Badge } from './ui/badge';
 
 const DEFAULT_PARTICLE_COUNT = 12;
 const DEFAULT_SPOTLIGHT_RADIUS = 300;
 const DEFAULT_GLOW_COLOR = '132, 0, 255';
 const MOBILE_BREAKPOINT = 768;
 
-const cardData = [
-  { title: 'Analytics', description: 'Track user behavior', label: 'Insights' },
-  {
-    title: 'Dashboard',
-    description: 'Centralized data view',
-    label: 'Overview',
-  },
-  {
-    title: 'Collaboration',
-    description: 'Work together seamlessly',
-    label: 'Teamwork',
-  },
-  {
-    title: 'Automation',
-    description: 'Streamline workflows',
-    label: 'Efficiency',
-  },
-  {
-    title: 'Integration',
-    description: 'Connect favorite tools',
-    label: 'Connectivity',
-  },
-  {
-    title: 'Security',
-    description: 'Enterprise-grade protection',
-    label: 'Protection',
-  },
-];
+type CardData = {
+  title: string;
+  headline?: string;
+  description: string;
+  label: string;
+  color?: string;
+  extraClass?: string;
+  tags?: string[];
+};
 
-const createParticleElement = (x, y, color = DEFAULT_GLOW_COLOR) => {
+type MagicBentoProps = {
+  textAutoHide?: boolean;
+  enableStars?: boolean;
+  enableSpotlight?: boolean;
+  enableBorderGlow?: boolean;
+  disableAnimations?: boolean;
+  spotlightRadius?: number;
+  particleCount?: number;
+  enableTilt?: boolean;
+  glowColor?: string;
+  clickEffect?: boolean;
+  enableMagnetism?: boolean;
+  cards?: CardData[];
+};
+
+const createParticleElement = (
+  x: number,
+  y: number,
+  color = DEFAULT_GLOW_COLOR,
+) => {
   const el = document.createElement('div');
   el.className = 'particle';
   el.style.cssText = `
@@ -55,12 +55,18 @@ const createParticleElement = (x, y, color = DEFAULT_GLOW_COLOR) => {
   return el;
 };
 
-const calculateSpotlightValues = (radius) => ({
+const calculateSpotlightValues = (radius: number) => ({
   proximity: radius * 0.5,
   fadeDistance: radius * 0.75,
 });
 
-const updateCardGlowProperties = (card, mouseX, mouseY, glow, radius) => {
+const updateCardGlowProperties = (
+  card: HTMLElement,
+  mouseX: number,
+  mouseY: number,
+  glow: number,
+  radius: number,
+) => {
   const rect = card.getBoundingClientRect();
   const relativeX = ((mouseX - rect.left) / rect.width) * 100;
   const relativeY = ((mouseY - rect.top) / rect.height) * 100;
@@ -71,7 +77,20 @@ const updateCardGlowProperties = (card, mouseX, mouseY, glow, radius) => {
   card.style.setProperty('--glow-radius', `${radius}px`);
 };
 
-const ParticleCard = ({
+type ParticleCardProps = {
+  children: React.ReactNode;
+  className?: string;
+  disableAnimations?: boolean;
+  style?: React.CSSProperties;
+  particleCount?: number;
+  glowColor?: string;
+  enableTilt?: boolean;
+  clickEffect?: boolean;
+  enableMagnetism?: boolean;
+  showGlowBorder?: boolean;
+};
+
+const ParticleCard: React.FC<ParticleCardProps> = ({
   children,
   className = '',
   disableAnimations = false,
@@ -81,14 +100,32 @@ const ParticleCard = ({
   enableTilt = true,
   clickEffect = false,
   enableMagnetism = false,
+  showGlowBorder = false,
 }) => {
-  const cardRef = useRef(null);
-  const particlesRef = useRef([]);
-  const timeoutsRef = useRef([]);
+  const cardRef = useRef<HTMLDivElement | null>(null);
+  const particlesRef = useRef<HTMLDivElement[]>([]);
+  const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const isHoveredRef = useRef(false);
-  const memoizedParticles = useRef([]);
+  const memoizedParticles = useRef<HTMLDivElement[]>([]);
   const particlesInitialized = useRef(false);
-  const magnetismAnimationRef = useRef(null);
+  const magnetismAnimationRef = useRef<gsap.core.Tween | null>(null);
+
+  // Inline replica of the ::after glow border using CSS variables
+  const GlowBorder = () => (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute inset-0 p-[6px]"
+      style={
+        {
+          background: `radial-gradient(var(--glow-radius, 200px) circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(var(--glow-color, ${glowColor}), calc(var(--glow-intensity, 0) * 0.8)) 0%, rgba(var(--glow-color, ${glowColor}), calc(var(--glow-intensity, 0) * 0.4)) 30%, transparent 60%)`,
+          borderRadius: 'inherit',
+          // No mask: glow fills the whole card area
+          transition: 'opacity 0.3s ease',
+          zIndex: 1,
+        } as React.CSSProperties
+      }
+    />
+  );
 
   const initializeParticles = useCallback(() => {
     if (particlesInitialized.current || !cardRef.current) return;
@@ -134,7 +171,7 @@ const ParticleCard = ({
       const timeoutId = setTimeout(() => {
         if (!isHoveredRef.current || !cardRef.current) return;
 
-        const clone = particle.cloneNode(true);
+        const clone = particle.cloneNode(true) as HTMLDivElement;
         cardRef.current.appendChild(clone);
         particlesRef.current.push(clone);
 
@@ -185,6 +222,8 @@ const ParticleCard = ({
           transformPerspective: 1000,
         });
       }
+      // Add colored glow similar to previous CSS on hover
+      element.style.boxShadow = `0 8px 25px rgba(0,0,0,0.15), 0 0 30px rgba(${glowColor}, 0.25)`;
     };
 
     const handleMouseLeave = () => {
@@ -208,9 +247,11 @@ const ParticleCard = ({
           ease: 'power2.out',
         });
       }
+      // Reset box shadow
+      element.style.boxShadow = '';
     };
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (!enableTilt && !enableMagnetism) return;
 
       const rect = element.getBoundingClientRect();
@@ -245,7 +286,7 @@ const ParticleCard = ({
       }
     };
 
-    const handleClick = (e) => {
+    const handleClick = (e: MouseEvent) => {
       if (!clickEffect) return;
 
       const rect = element.getBoundingClientRect();
@@ -316,22 +357,31 @@ const ParticleCard = ({
   return (
     <div
       ref={cardRef}
-      className={`${className} particle-container`}
-      style={{ ...style, position: 'relative', overflow: 'hidden' }}
+      className={`${className} card relative overflow-hidden`}
+      style={{ ...style }}
     >
-      {children}
+      {showGlowBorder && <GlowBorder />}
+      <div className="relative z-[2] h-full w-full">{children}</div>
     </div>
   );
 };
 
-const GlobalSpotlight = ({
+type GlobalSpotlightProps = {
+  gridRef: React.RefObject<HTMLDivElement | null>;
+  disableAnimations?: boolean;
+  enabled?: boolean;
+  spotlightRadius?: number;
+  glowColor?: string;
+};
+
+const GlobalSpotlight: React.FC<GlobalSpotlightProps> = ({
   gridRef,
   disableAnimations = false,
   enabled = true,
   spotlightRadius = DEFAULT_SPOTLIGHT_RADIUS,
   glowColor = DEFAULT_GLOW_COLOR,
 }) => {
-  const spotlightRef = useRef(null);
+  const spotlightRef = useRef<HTMLDivElement | null>(null);
   const isInsideSection = useRef(false);
 
   useEffect(() => {
@@ -357,11 +407,12 @@ const GlobalSpotlight = ({
       opacity: 0;
       transform: translate(-50%, -50%);
       mix-blend-mode: screen;
+      will-change: transform, opacity;
     `;
     document.body.appendChild(spotlight);
     spotlightRef.current = spotlight;
 
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: MouseEvent) => {
       if (!spotlightRef.current || !gridRef.current) return;
 
       const section = gridRef.current.closest('.bento-section');
@@ -374,7 +425,7 @@ const GlobalSpotlight = ({
         e.clientY <= rect.bottom;
 
       isInsideSection.current = mouseInside || false;
-      const cards = gridRef.current.querySelectorAll('.card');
+      const cards = gridRef.current.querySelectorAll<HTMLElement>('.card');
 
       if (!mouseInside) {
         gsap.to(spotlightRef.current, {
@@ -444,9 +495,11 @@ const GlobalSpotlight = ({
 
     const handleMouseLeave = () => {
       isInsideSection.current = false;
-      gridRef.current?.querySelectorAll('.card').forEach((card) => {
-        card.style.setProperty('--glow-intensity', '0');
-      });
+      gridRef.current
+        ?.querySelectorAll<HTMLElement>('.card')
+        .forEach((card) => {
+          card.style.setProperty('--glow-intensity', '0');
+        });
       if (spotlightRef.current) {
         gsap.to(spotlightRef.current, {
           opacity: 0,
@@ -469,8 +522,16 @@ const GlobalSpotlight = ({
   return null;
 };
 
-const BentoCardGrid = ({ children, gridRef }) => (
-  <div className="card-grid bento-section" ref={gridRef}>
+type BentoCardGridProps = {
+  children: React.ReactNode;
+  gridRef: React.RefObject<HTMLDivElement | null>;
+};
+
+const BentoCardGrid: React.FC<BentoCardGridProps> = ({ children, gridRef }) => (
+  <div
+    ref={gridRef}
+    className="bento-section mx-auto grid w-full max-w-[54em] grid-cols-1 gap-2 p-3 text-[clamp(1rem,0.9rem+0.5vw,1.5rem)] select-none sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-5"
+  >
     {children}
   </div>
 );
@@ -491,7 +552,7 @@ const useMobileDetection = () => {
   return isMobile;
 };
 
-const MagicBento = ({
+const MagicBento: React.FC<MagicBentoProps> = ({
   textAutoHide = true,
   enableStars = true,
   enableSpotlight = true,
@@ -506,11 +567,11 @@ const MagicBento = ({
   // Optional: pass custom cards to render instead of defaults
   cards,
 }) => {
-  const gridRef = useRef(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
   const isMobile = useMobileDetection();
   const shouldDisableAnimations = disableAnimations || isMobile;
-  const cardsToRender =
-    Array.isArray(cards) && cards.length > 0 ? cards : cardData;
+  const cardsToRender: CardData[] =
+    Array.isArray(cards) && cards.length > 0 ? cards : [];
 
   // Resolve theme primary color to an RGB triplet string for glow effects
   const [themePrimaryRGB, setThemePrimaryRGB] = useState(DEFAULT_GLOW_COLOR);
@@ -549,34 +610,129 @@ const MagicBento = ({
 
       <BentoCardGrid gridRef={gridRef}>
         {cardsToRender.map((card, index) => {
-          const baseClassName =
-            `card ${textAutoHide ? 'card--text-autohide' : ''} ${enableBorderGlow ? 'card--border-glow' : ''} ${card?.extraClass || ''}`.trim();
-          const cardProps = {
-            className: baseClassName,
-            style: {
+          // Grid positioning rules that previously relied on nth-child selectors
+          const layoutClasses = [
+            index === 0 ? 'lg:col-span-1 lg:row-span-2' : '',
+            index === 1 ? 'lg:col-span-1 lg:row-span-2' : '',
+            index === 2 ? 'lg:col-span-2 lg:row-span-3' : '',
+            index === 3 ? 'lg:col-span-2 lg:row-span-3' : '',
+            index === 4 ? 'lg:col-span-1 lg:row-span-2' : '',
+            index === 5 ? 'lg:col-span-1 lg:row-span-2' : '',
+          ]
+            .filter(Boolean)
+            .join(' ');
+
+          const tailwindCardBase = [
+            // container
+            'relative overflow-hidden flex flex-col justify-between',
+            'min-h-[200px] w-full max-w-full',
+            'p-5 rounded-[20px] border',
+            'transition-all duration-300',
+            'hover:-translate-y-0.5',
+            // subtle shadow on hover
+            'hover:shadow-[0_8px_25px_rgba(0,0,0,0.15)]',
+          ].join(' ');
+
+          const baseClassName = [
+            tailwindCardBase,
+            'card',
+            enableBorderGlow ? 'card--border-glow' : '',
+            card?.extraClass || '',
+            layoutClasses,
+          ]
+            .filter(Boolean)
+            .join(' ');
+
+          const cardStyle: React.CSSProperties & { ['--glow-color']?: string } =
+            {
               backgroundColor: card.color || 'var(--color-card)',
-              '--glow-color': resolvedGlowColor,
-            },
-          };
+              borderColor: 'var(--color-border)' as unknown as string,
+              ['--glow-color']: resolvedGlowColor,
+            };
 
           if (enableStars) {
             return (
               <ParticleCard
                 key={index}
-                {...cardProps}
                 disableAnimations={shouldDisableAnimations}
                 particleCount={particleCount}
                 glowColor={resolvedGlowColor}
                 enableTilt={enableTilt}
                 clickEffect={clickEffect}
                 enableMagnetism={enableMagnetism}
+                className={baseClassName}
+                style={cardStyle}
+                showGlowBorder={enableBorderGlow}
               >
-                <div className="card__header">
-                  <div className="card__label">{card.label}</div>
+                <div className="mb-2 flex justify-between gap-3 text-[var(--color-card-foreground)]">
+                  <Badge variant="default">{card.label}</Badge>
                 </div>
-                <div className="card__content">
-                  <h2 className="card__title">{card.title}</h2>
-                  <p className="card__description">{card.description}</p>
+                <div className="flex h-[90%] flex-col justify-between text-[var(--color-card-foreground)]">
+                  <div>
+                    <h2
+                      className="m-0 mb-1 text-base font-normal"
+                      style={
+                        textAutoHide
+                          ? ({
+                              display: '-webkit-box',
+                              WebkitBoxOrient: 'vertical',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              WebkitLineClamp: 1,
+                            } as React.CSSProperties)
+                          : undefined
+                      }
+                    >
+                      {card.title}
+                    </h2>
+
+                    <h3
+                      className="m-0 mb-1 text-sm font-normal italic opacity-90"
+                      style={
+                        textAutoHide
+                          ? ({
+                              display: '-webkit-box',
+                              WebkitBoxOrient: 'vertical',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              WebkitLineClamp: 1,
+                            } as React.CSSProperties)
+                          : undefined
+                      }
+                    >
+                      {card.headline}
+                    </h3>
+                    <p
+                      className="text-xs leading-tight opacity-90"
+                      style={
+                        textAutoHide
+                          ? ({
+                              display: '-webkit-box',
+                              WebkitBoxOrient: 'vertical',
+                              overflow: 'hidden',
+                              textOverflow: 'ellipsis',
+                              // WebkitLineClamp: 2,
+                            } as React.CSSProperties)
+                          : undefined
+                      }
+                    >
+                      {card.description}
+                    </p>
+                  </div>
+
+                  {card.tags && card.tags.length > 0 && (
+                    <div className="mt-2 flex flex-wrap gap-1">
+                      {card.tags.map((tag, idx) => (
+                        <Badge
+                          variant="outline"
+                          key={idx}
+                          // className="rounded-full bg-[var(--color-primary)]/10 px-2 py-0.5 text-[0.7em] font-medium text-[var(--color-primary)]"
+                        >
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </ParticleCard>
             );
@@ -585,11 +741,12 @@ const MagicBento = ({
           return (
             <div
               key={index}
-              {...cardProps}
+              className={baseClassName}
+              style={cardStyle}
               ref={(el) => {
                 if (!el) return;
 
-                const handleMouseMove = (e) => {
+                const handleMouseMove = (e: MouseEvent) => {
                   if (shouldDisableAnimations) return;
 
                   const rect = el.getBoundingClientRect();
@@ -642,9 +799,11 @@ const MagicBento = ({
                       ease: 'power2.out',
                     });
                   }
+                  // Reset box shadow
+                  el.style.boxShadow = '';
                 };
 
-                const handleClick = (e) => {
+                const handleClick = (e: MouseEvent) => {
                   if (!clickEffect || shouldDisableAnimations) return;
 
                   const rect = el.getBoundingClientRect();
@@ -692,14 +851,91 @@ const MagicBento = ({
                 el.addEventListener('mousemove', handleMouseMove);
                 el.addEventListener('mouseleave', handleMouseLeave);
                 el.addEventListener('click', handleClick);
+                el.addEventListener('mouseenter', () => {
+                  if (shouldDisableAnimations) return;
+                  el.style.boxShadow = `0 8px 25px rgba(0,0,0,0.15), 0 0 30px rgba(${resolvedGlowColor}, 0.25)`;
+                });
               }}
             >
-              <div className="card__header">
-                <div className="card__label">{card.label}</div>
+              {enableBorderGlow && (
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 p-[6px]"
+                  style={
+                    {
+                      background: `radial-gradient(var(--glow-radius, 200px) circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(var(--glow-color, ${resolvedGlowColor}), calc(var(--glow-intensity, 0) * 0.8)) 0%, rgba(var(--glow-color, ${resolvedGlowColor}), calc(var(--glow-intensity, 0) * 0.4)) 30%, transparent 60%)`,
+                      borderRadius: 'inherit',
+                      // No mask: glow fills the whole card area
+                      transition: 'opacity 0.3s ease',
+                      zIndex: 1,
+                    } as React.CSSProperties
+                  }
+                />
+              )}
+              <div className="flex justify-between gap-3 text-[var(--color-card-foreground)]">
+                <div className="text-base">{card.label}</div>
               </div>
-              <div className="card__content">
-                <h2 className="card__title">{card.title}</h2>
-                <p className="card__description">{card.description}</p>
+              <div className="flex flex-col text-[var(--color-card-foreground)]">
+                <h2
+                  className="m-0 mb-1 text-base font-normal"
+                  style={
+                    textAutoHide
+                      ? ({
+                          display: '-webkit-box',
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          WebkitLineClamp: 1,
+                        } as React.CSSProperties)
+                      : undefined
+                  }
+                >
+                  {card.title}
+                </h2>
+                <h3
+                  className="m-0 mb-1 text-base font-normal italic"
+                  style={
+                    textAutoHide
+                      ? ({
+                          display: '-webkit-box',
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          WebkitLineClamp: 1,
+                        } as React.CSSProperties)
+                      : undefined
+                  }
+                >
+                  {card.headline}
+                </h3>
+                <p
+                  className="text-xs leading-tight opacity-90"
+                  style={
+                    textAutoHide
+                      ? ({
+                          display: '-webkit-box',
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          // WebkitLineClamp: 2,
+                        } as React.CSSProperties)
+                      : undefined
+                  }
+                >
+                  {card.description}
+                </p>
+                {card.tags && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {card.tags.map((tag, idx) => (
+                      <Badge
+                        key={idx}
+                        // className="rounded-full bg-[var(--color-primary)]/10 px-2 py-0.5 text-[0.7em] font-medium text-[var(--color-primary)]"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           );

@@ -1,46 +1,59 @@
 'use client';
 import dynamic from 'next/dynamic';
-const MagicBento = dynamic(() => import('@/components/MagicBento.jsx'), {
+const MagicBento = dynamic(() => import('@/components/MagicBento'), {
   ssr: false,
 });
 
 const FEATURES = [
   {
-    title: 'Web Applications',
+    title: 'Enterprise Platforms',
+    headline: 'Scale with confidence.',
     description:
-      'Modern, accessible and SEO‑driven React/Next.js apps optimized for performance.',
+      'Robust ERP and enterprise-grade systems that streamline operations, enhance collaboration, and ensure compliance at scale. Built for resilience, built for growth.',
+    label: 'Enterprise',
+    tags: ['ERP', 'CRM', 'Integrations'],
+  },
+  {
+    title: 'Cloud & DevOps',
+    headline: 'Future-proof infrastructure.',
+    description:
+      'Optimized deployments and automated workflows that keep your systems fast, reliable, and ready for scale.',
     label: 'Service',
+    tags: ['AWS', 'Azure', 'GCP', 'CI/CD'],
+  },
+  {
+    title: 'AI-Powered Applications',
+    headline: 'Launch smarter, scale faster',
+    description:
+      'Tailored AI solutions that transform ideas into intelligent products — from chatbots to predictive analytics. Give your startup the edge with automation, personalization, and data-driven growth.',
+    label: 'Startups',
+    tags: ['AI', 'Machine Learning', 'Automation'],
   },
   {
     title: 'Mobile Apps',
+    headline: ' Go where your customers are.',
     description:
-      'Cross‑platform native experiences for iOS & Android with smooth UX.',
+      'Sleek, user-first mobile apps built to drive adoption, retention, and revenue. From MVPs to full-scale launches, we help startups win in competitive markets.',
     label: 'Service',
+    tags: ['IOS', 'Android', 'Flutter'],
   },
+
   {
-    title: 'AI Systems & Agents',
+    title: 'Web Applications',
+    headline: ' Build once, scale everywhere.',
     description:
-      'RAG, fine‑tuning, realtime agents and AI copilots integrated into your product.',
-    label: 'Intelligence',
-    extraClass: 'card--ai',
-  },
-  {
-    title: 'Backend Services',
-    description:
-      'Low‑latency APIs, microservices & event pipelines that scale predictably.',
+      'Fast, secure, and versatile platforms — from SaaS tools to e-commerce portals. Perfect for startups validating their business model.',
     label: 'Service',
+    tags: ['Web', 'Full-Stack'],
   },
+
   {
-    title: 'ERP & Integrations',
+    title: 'Product Design',
+    headline: 'Design that converts.',
     description:
-      'Custom ERP modules, data sync & workflow automation across systems.',
+      'Engaging UI/UX that turns first-time users into loyal customers. Research-driven, pixel-perfect, and business-aligned.',
     label: 'Service',
-  },
-  {
-    title: 'Dashboards & Data',
-    description:
-      'Real‑time analytics, metrics visualization & operational intelligence.',
-    label: 'Service',
+    tags: ['UI/UX', 'Figma', 'Prototyping'],
   },
 ];
 
