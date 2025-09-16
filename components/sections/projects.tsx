@@ -1,138 +1,69 @@
 import { Badge } from '@/components/ui/badge';
 import SpotlightCard from '@/components/SpotlightCard';
 
-type Project = {
+type Industry = {
   name: string;
-  blurb: string;
-  stack: string[];
+  tagline: string;
+  description: string;
+  tags: string[];
 };
 
-const PROJECTS: Project[] = [
+const INDUSTRIES: Industry[] = [
   {
-    name: 'AI Product for Secondary Sales Statements',
-    blurb:
-      'Digitizes secondary sales statements, detects anomalies and automates insights.',
-    stack: ['Node.js', 'Next.js', 'DynamoDB', 'Serverless'],
+    name: 'Finance & Wealth Management',
+    tagline: 'Secure platforms for financial growth.',
+    description:
+      'Built fintech ecosystems—portfolio management, wealth advisory, and AI-driven sales automation.',
+    tags: ['Node.js', 'DynamoDB', 'PostgreSQL', 'Serverless'],
   },
   {
-    name: 'CuratePro',
-    blurb:
-      'AI product to extract product info from furniture catalog PDFs (variants, pricing).',
-    stack: ['Node.js', 'Next.js', 'DynamoDB', 'Serverless'],
+    name: 'Healthcare & Wellness',
+    tagline: 'Smart digital platforms for modern care.',
+    description:
+      'Launched AI-powered health apps enabling patient consultations, intelligent engagement, and secure digital delivery.',
+    tags: ['Node.js', 'Flutter', 'DynamoDB', 'Figma'],
   },
   {
-    name: 'DrDerm',
-    blurb:
-      'Skin & Hair consultation and e‑commerce app for dermatologists and patients.',
-    stack: ['Node.js', 'Flutter', 'PostgreSQL', 'Figma'],
+    name: 'Retail & eCommerce',
+    tagline: 'Next-gen commerce for global markets.',
+    description:
+      'Engineered AI catalog extraction, modular e-stores, and cross-border marketplaces.',
+    tags: ['Next.js', 'MongoDB', 'Python', 'React', 'FastAPI'],
   },
   {
-    name: 'Sarathi',
-    blurb:
-      'Hindu Prayer App with AI chat, daily rosary and classics. Admin console for content.',
-    stack: ['Node.js', 'Next.js', 'DynamoDB', 'Serverless'],
+    name: 'Manufacturing & Supply Chain',
+    tagline: 'Digital networks for efficient operations.',
+    description:
+      'Transformed workflows with ERP systems and platforms driving automation and transparency.',
+    tags: ['React Native', 'PostgreSQL', 'Figma', 'APIs'],
   },
   {
-    name: 'Fyn Mobility',
-    blurb:
-      'Super app for blue‑collar workers: jobs, health, document verification + admin.',
-    stack: [
-      'Node.js',
-      'Next.js',
-      'DynamoDB',
-      'Serverless',
-      'PostgreSQL',
-      'Figma',
-    ],
+    name: 'Education & Learning',
+    tagline: 'Tech-driven solutions for accessible learning.',
+    description:
+      'Delivered EdTech systems—AI study tools, scheduling apps, and global consulting platforms.',
+    tags: ['Python', 'Django', 'Node.js', 'React', 'PostgreSQL'],
   },
   {
-    name: 'HUES',
-    blurb: 'SAAS ERP for SMEs covering sales orders, inventory, purchases.',
-    stack: ['PostgreSQL', 'Node.js', 'Next.js', 'Figma'],
+    name: 'Mobility & Workforce',
+    tagline: 'Scalable platforms for workforce empowerment.',
+    description:
+      'Designed mobility-first solutions—job marketplaces, operational tools, and super apps.',
+    tags: ['Node.js', 'Figma', 'PostgreSQL', 'DynamoDB'],
   },
   {
-    name: 'AAA Tech',
-    blurb:
-      'Mobile app for operations plus website for diversified business divisions.',
-    stack: [
-      'Node.js',
-      'Next.js',
-      'PostgreSQL',
-      'DynamoDB',
-      'Serverless',
-      'Figma',
-    ],
+    name: 'Consumer Platforms',
+    tagline: 'Personalized apps for everyday use.',
+    description:
+      'Launched AI-driven hobby platforms, chatbots, and user engagement tools.',
+    tags: ['React', 'Socket.IO', 'Python', 'Figma'],
   },
   {
-    name: 'Samay',
-    blurb: 'Scheduling tool for course planning and management at IMS.',
-    stack: ['Python', 'Django', 'Next.js', 'Figma'],
-  },
-  {
-    name: 'Mod Or',
-    blurb:
-      'Modular platform for Study Abroad Consulting: appointments and documents.',
-    stack: ['Python', 'Django', 'Next.js', 'Figma'],
-  },
-  {
-    name: 'ChemistMitra',
-    blurb: 'ERP + Marketplace for chemists: orders, inventory, customers.',
-    stack: ['Node.js', 'React Native', 'Next.js', 'PostgreSQL', 'Figma'],
-  },
-  {
-    name: 'Aavyooh',
-    blurb:
-      'Transparent, circular manufacturing network with risk shield, waste lens and alternatives.',
-    stack: ['Node.js', 'Next.js', 'DynamoDB', 'Serverless'],
-  },
-  {
-    name: 'MyVisaPal',
-    blurb: 'Online visa booking service.',
-    stack: ['Node.js', 'Next.js', 'Firebase', 'Figma'],
-  },
-  {
-    name: 'Vidyame',
-    blurb:
-      'Access and learn Indian local literature across audio/video/text, transliteration, commentary. Creator and subscription management + scraping pipeline.',
-    stack: [
-      'Node.js',
-      'Next.js',
-      'PostgreSQL',
-      'Python',
-      'MongoDB',
-      'Web‑Scraping',
-      'Figma',
-    ],
-  },
-  {
-    name: 'Ornate Solar',
-    blurb:
-      'B2B Solar Trading & Installation ERP/CRM/service platform for projects.',
-    stack: ['Python', 'Django', 'Node.js', 'Android', 'Next.js', 'Figma'],
-  },
-  {
-    name: 'Truemind Capital',
-    blurb:
-      'Wealth management site and PMS for HNIs, Ultra HNIs, NRIs and foreign nationals.',
-    stack: ['Node.js', 'Next.js', 'DynamoDB', 'Serverless'],
-  },
-  {
-    name: 'August.ai',
-    blurb:
-      'AI health agents enabling empathetic, accurate engagement for patients.',
-    stack: ['Node.js', 'Next.js', 'DynamoDB', 'Serverless'],
-  },
-  {
-    name: 'Pursueit',
-    blurb:
-      'Hobby platform with AI search/chatbot for recommendations and class listings.',
-    stack: ['Socket.io', 'React'],
-  },
-  {
-    name: 'Trampoline',
-    blurb:
-      'Cross‑border B2B Furniture Store with OMS, Vendor Platform and Scraping Tool.',
-    stack: ['FastAPI', 'Python', 'Next.js', 'MongoDB', 'Figma'],
+    name: 'Religion & Culture',
+    tagline: 'AI solutions for cultural engagement.',
+    description:
+      'Digitized traditions with AI-powered prayer apps and scripture access platforms.',
+    tags: ['Node.js', 'Next.js', 'Python', 'MongoDB'],
   },
 ];
 
@@ -147,31 +78,31 @@ export function ProjectsSection() {
           Selected Work
         </Badge>
         <h2 className="font-serif text-3xl font-bold tracking-tight md:text-4xl">
-          Projects & Case Studies
+          Projects & Case Studies (By Industry)
         </h2>
-        <p className="text-muted-foreground mx-auto mt-3 max-w-2xl text-sm md:text-base">
-          A snapshot of products and platforms we&apos;ve partnered on.
-        </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {PROJECTS.map((p) => (
+        {INDUSTRIES.map((i) => (
           <SpotlightCard
-            key={p.name}
+            key={i.name}
             className="bg-card/60 hover:border-primary/40 rounded-xl border p-5 shadow-sm backdrop-blur-sm transition"
             spotlightColor="primary"
           >
-            <h3 className="text-base leading-tight font-semibold">{p.name}</h3>
+            <h3 className="text-base leading-tight font-semibold">{i.name}</h3>
             <p className="text-muted-foreground mt-1 text-xs md:text-sm">
-              {p.blurb}
+              {i.tagline}
+            </p>
+            <p className="text-muted-foreground/90 mt-2 text-[12px] md:text-sm">
+              {i.description}
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
-              {p.stack.map((s) => (
+              {i.tags.map((tag) => (
                 <span
-                  key={s}
+                  key={tag}
                   className="text-muted-foreground/90 border-border bg-background/60 rounded-full border px-2 py-0.5 text-[10px]"
                 >
-                  {s}
+                  {tag}
                 </span>
               ))}
             </div>
