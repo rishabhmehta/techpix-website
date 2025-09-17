@@ -52,7 +52,7 @@ const TEAM: Member[] = [
     funFact:
       'Crafts mobile apps that feel like a natural extension of the user, making them impossible to put down.',
     quote:
-      "The best mobile apps feel like a natural extension of the user. That's what I strive to create.",
+      "We aim to build the app you didn't know you needed, but now can't live without.",
   },
   {
     name: 'Aakansha Bhati',
