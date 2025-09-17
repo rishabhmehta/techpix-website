@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { Menu, X } from 'lucide-react';
 
 export type PillNavItem = {
   label: string;
@@ -193,55 +194,104 @@ const PillNav: React.FC<PillNavProps> = ({
     });
   };
 
-  const toggleMobileMenu = () => {
-    const newState = !isMobileMenuOpen;
-    setIsMobileMenuOpen(newState);
-
+  const animateHamburger = (open: boolean) => {
     const hamburger = hamburgerRef.current;
-    const menu = mobileMenuRef.current;
+    if (!hamburger) return;
 
-    if (hamburger) {
-      const lines = hamburger.querySelectorAll('.hamburger-line');
-      if (newState) {
-        gsap.to(lines[0], { rotation: 45, y: 3, duration: 0.3, ease });
-        gsap.to(lines[1], { rotation: -45, y: -3, duration: 0.3, ease });
-      } else {
-        gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease });
-        gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease });
-      }
+    const menuIcon = hamburger.querySelector(
+      '.hamburger-icon-menu',
+    ) as HTMLElement | null;
+    const xIcon = hamburger.querySelector(
+      '.hamburger-icon-x',
+    ) as HTMLElement | null;
+
+    if (!menuIcon || !xIcon) return;
+
+    if (open) {
+      gsap.to(menuIcon, {
+        opacity: 0,
+        scale: 0.7,
+        rotate: -90,
+        duration: 0.2,
+        ease,
+        onComplete: () => {
+          gsap.set(menuIcon, { visibility: 'hidden' });
+        },
+      });
+      gsap.set(xIcon, { visibility: 'visible' });
+      gsap.fromTo(
+        xIcon,
+        { opacity: 0, scale: 0.8, rotate: 90 },
+        { opacity: 1, scale: 1, rotate: 0, duration: 0.2, ease },
+      );
+    } else {
+      gsap.to(xIcon, {
+        opacity: 0,
+        scale: 0.7,
+        rotate: 90,
+        duration: 0.2,
+        ease,
+        onComplete: () => {
+          gsap.set(xIcon, { visibility: 'hidden' });
+        },
+      });
+      gsap.set(menuIcon, { visibility: 'visible' });
+      gsap.fromTo(
+        menuIcon,
+        { opacity: 0, scale: 0.8, rotate: -90 },
+        { opacity: 1, scale: 1, rotate: 0, duration: 0.2, ease },
+      );
     }
+  };
 
-    if (menu) {
-      if (newState) {
-        gsap.set(menu, { visibility: 'visible' });
-        gsap.fromTo(
-          menu,
-          { opacity: 0, y: 10, scaleY: 1 },
-          {
-            opacity: 1,
-            y: 0,
-            scaleY: 1,
-            duration: 0.3,
-            ease,
-            transformOrigin: 'top center',
-          },
-        );
-      } else {
-        gsap.to(menu, {
-          opacity: 0,
-          y: 10,
+  const animateMenuPanel = (open: boolean) => {
+    const menu = mobileMenuRef.current;
+    if (!menu) return;
+
+    if (open) {
+      gsap.set(menu, { visibility: 'visible' });
+      gsap.fromTo(
+        menu,
+        { opacity: 0, y: 10, scaleY: 1 },
+        {
+          opacity: 1,
+          y: 0,
           scaleY: 1,
-          duration: 0.2,
+          duration: 0.3,
           ease,
           transformOrigin: 'top center',
-          onComplete: () => {
-            gsap.set(menu, { visibility: 'hidden' });
-          },
-        });
-      }
+        },
+      );
+    } else {
+      gsap.to(menu, {
+        opacity: 0,
+        y: 10,
+        scaleY: 1,
+        duration: 0.2,
+        ease,
+        transformOrigin: 'top center',
+        onComplete: () => {
+          gsap.set(menu, { visibility: 'hidden' });
+        },
+      });
     }
+  };
 
+  const setMobileMenuOpen = (open: boolean) => {
+    setIsMobileMenuOpen(open);
+    animateHamburger(open);
+    animateMenuPanel(open);
     onMobileMenuClick?.();
+  };
+
+  const closeMobileMenu = () => {
+    if (!isMobileMenuOpen) return;
+    setMobileMenuOpen(false);
+  };
+
+  const toggleMobileMenu = () => {
+    const newState = !isMobileMenuOpen;
+    setMobileMenuOpen(newState);
   };
 
   const cssVars = {
@@ -257,14 +307,14 @@ const PillNav: React.FC<PillNavProps> = ({
   } as React.CSSProperties;
 
   return (
-    <div className="fixed top-4 left-0 z-[99] w-full px-4 md:left-1/2 md:w-max md:-translate-x-1/2">
+    <div className="fixed top-4 left-0 z-50 w-full px-4 md:left-1/2 md:w-max md:-translate-x-1/2">
       <nav
         className={`box-border flex w-full items-center justify-between md:w-max md:justify-start ${className}`}
         aria-label="Primary"
         style={cssVars}
       >
         <Link
-          className="mr-2 inline-flex h-[var(--nav-h)] w-[var(--nav-h)] items-center justify-center overflow-hidden rounded-full bg-[var(--base,var(--muted))] p-2"
+          className="mr-2 inline-flex h-[var(--nav-h)] w-fit items-center justify-center overflow-hidden rounded-full bg-[var(--base,var(--muted))] p-2"
           href={items[0].href}
           aria-label="Home"
           onMouseEnter={handleLogoEnter}
@@ -279,7 +329,11 @@ const PillNav: React.FC<PillNavProps> = ({
             ref={logoImgRef}
             width="100"
             height="100"
+            className="size-8"
           />
+          <span className="ml-2 hidden text-base font-semibold sm:block">
+            Techpix
+          </span>
         </Link>
 
         <div
@@ -329,24 +383,35 @@ const PillNav: React.FC<PillNavProps> = ({
             ))}
           </ul>
         </div>
-
-        <button
-          className="relative flex h-[var(--nav-h)] w-[var(--nav-h)] items-center justify-center gap-1 rounded-full [background:var(--base,var(--muted))] md:hidden"
-          onClick={toggleMobileMenu}
-          aria-label="Toggle menu"
-          ref={hamburgerRef}
-        >
-          <span className="hamburger-line block h-[2px] w-4 origin-center rounded transition-all duration-75 [background:var(--pill-text,var(--card-foreground))]" />
-          <span className="hamburger-line block h-[2px] w-4 origin-center rounded transition-all duration-75 [background:var(--pill-text,var(--card-foreground))]" />
-        </button>
-        <div className="ml-2">
-          <ThemeToggle />
+        <div className="flex items-center gap-1">
+          <button
+            className="relative flex h-[var(--nav-h)] w-[var(--nav-h)] items-center justify-center gap-1 rounded-full [background:var(--base,var(--muted))] md:hidden"
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
+            ref={hamburgerRef}
+          >
+            <Menu
+              className="hamburger-icon-menu absolute h-5 w-5 text-[var(--pill-text,var(--card-foreground))]"
+              aria-hidden="true"
+            />
+            <X
+              className="hamburger-icon-x absolute h-5 w-5 text-[var(--pill-text,var(--card-foreground))]"
+              aria-hidden="true"
+              style={{ visibility: 'hidden' }}
+            />
+          </button>
+          <div className="ml-2">
+            <ThemeToggle />
+          </div>
         </div>
       </nav>
 
       <div
         className="absolute top-[3em] right-4 left-4 z-[998] rounded-[27px] opacity-0 [box-shadow:0_8px_32px_rgba(0,0,0,0.12)] [background:var(--popover)] md:hidden"
         ref={mobileMenuRef}
+        id="mobile-menu"
         style={cssVars}
       >
         <ul className="m-0 flex list-none flex-col gap-[3px] p-[3px]">
@@ -355,7 +420,7 @@ const PillNav: React.FC<PillNavProps> = ({
               <Link
                 href={item.href}
                 className="block rounded-[50px] bg-[var(--pill-bg,var(--card))] px-4 py-3 text-[14px] font-medium text-[var(--pill-text,var(--card-foreground))] transition-all duration-200 hover:[background-color:var(--highlight,var(--primary))] hover:text-[var(--hover-text,var(--primary-foreground))] dark:border dark:border-[var(--border)] dark:bg-[var(--background)]"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={closeMobileMenu}
               >
                 {item.label}
               </Link>
