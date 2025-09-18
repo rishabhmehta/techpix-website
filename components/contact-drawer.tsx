@@ -19,33 +19,7 @@ import {
   SelectItem,
   SelectValue,
 } from '@/components/ui/select';
-
-// Simple media query hook (avoids extra deps)
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = React.useState(false);
-  React.useEffect(() => {
-    if (
-      typeof window === 'undefined' ||
-      typeof window.matchMedia === 'undefined'
-    )
-      return;
-    const mql = window.matchMedia(query);
-    const onChange = (e: MediaQueryListEvent) => setMatches(e.matches);
-    function onChangeLegacy(this: MediaQueryList, ev: MediaQueryListEvent) {
-      setMatches(ev.matches);
-    }
-    // init
-    setMatches(mql.matches);
-    // subscribe (fallback for older Safari)
-    if (mql.addEventListener) mql.addEventListener('change', onChange);
-    else mql.addListener(onChangeLegacy);
-    return () => {
-      if (mql.removeEventListener) mql.removeEventListener('change', onChange);
-      else mql.removeListener(onChangeLegacy);
-    };
-  }, [query]);
-  return matches;
-}
+import { useMediaQuery } from './hooks/use-media-query';
 
 // Responsive contact drawer: bottom on mobile, right on >=sm screens
 export function ContactDrawer() {
