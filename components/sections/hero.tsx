@@ -49,7 +49,7 @@ export function HeroSection() {
         </p>
 
         <h1 className="from-foreground via-foreground to-foreground/80 max-w-5xl bg-gradient-to-b bg-clip-text font-serif text-4xl leading-tight font-bold tracking-tight text-balance text-transparent md:text-5xl lg:text-6xl">
-          Engineering Websites, Mobile Apps & Real‑time Platforms
+          Engineering Scalable Platforms for a Connected Future
         </h1>
 
         <p className="text-muted-foreground max-w-2xl text-sm leading-relaxed text-balance md:text-base">
