@@ -134,7 +134,7 @@ export function ContactDrawer() {
               name="phone"
               type="tel"
               inputMode="tel"
-              placeholder="+1 555 123 4567"
+              placeholder="+919876543210"
             />
           </div>
         </div>
@@ -199,8 +199,6 @@ export function ContactDrawer() {
               <SelectItem value="Google">Google</SelectItem>
               <SelectItem value="LinkedIn">LinkedIn</SelectItem>
               <SelectItem value="Twitter/X">Twitter/X</SelectItem>
-              <SelectItem value="Referral">Referral</SelectItem>
-              <SelectItem value="Event">Event/Conference</SelectItem>
               <SelectItem value="Other">Other</SelectItem>
             </SelectContent>
           </Select>
