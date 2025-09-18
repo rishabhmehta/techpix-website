@@ -59,7 +59,7 @@ export function ContactDrawer() {
         {/* Hidden inputs for non-native Select values */}
         <input type="hidden" name="budget" value={budget} />
         <input type="hidden" name="referral" value={referral} />
-        <div className="grid grid-cols-1 gap-4 text-left sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4 text-left">
           <div className="grid gap-2">
             <label htmlFor="firstName" className="text-sm font-medium">
               First name
@@ -86,7 +86,7 @@ export function ContactDrawer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 text-left sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4 text-left">
           <div className="grid gap-2">
             <label htmlFor="email" className="text-sm font-medium">
               Email
@@ -113,7 +113,7 @@ export function ContactDrawer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 text-left sm:grid-cols-2">
+        <div className="grid grid-cols-2 gap-4 text-left">
           <div className="grid gap-2">
             <label htmlFor="company" className="text-sm font-medium">
               Company
