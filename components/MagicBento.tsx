@@ -1,5 +1,6 @@
 'use client';
 import React, { useRef, useEffect, useCallback, useState } from 'react';
+import Image from 'next/image';
 import { gsap } from 'gsap';
 import { Badge } from './ui/badge';
 
@@ -16,6 +17,7 @@ type CardData = {
   color?: string;
   extraClass?: string;
   tags?: string[];
+  image?: string;
 };
 
 type MagicBentoProps = {
@@ -718,6 +720,23 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                     >
                       {card.description}
                     </p>
+                    {card.image && (
+                      <div className="mt-3 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-black">
+                        <div
+                          className="relative w-full"
+                          style={{ aspectRatio: '16 / 9' }}
+                        >
+                          <Image
+                            src={card.image}
+                            alt={card.title}
+                            fill
+                            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                            className="object-contain"
+                            priority={false}
+                          />
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {card.tags && card.tags.length > 0 && (
@@ -924,6 +943,23 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                 >
                   {card.description}
                 </p>
+                {card.image && (
+                  <div className="mt-3 overflow-hidden rounded-xl border border-[var(--color-border)] bg-black/5">
+                    <div
+                      className="relative w-full"
+                      style={{ aspectRatio: '16 / 9' }}
+                    >
+                      <Image
+                        src={card.image}
+                        alt={card.title}
+                        fill
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover"
+                        priority={false}
+                      />
+                    </div>
+                  </div>
+                )}
                 {card.tags && (
                   <div className="mt-2 flex flex-wrap gap-1">
                     {card.tags.map((tag, idx) => (

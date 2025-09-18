@@ -28,6 +28,7 @@ const FEATURES = [
       'Tailored AI solutions that transform ideas into intelligent products — from chatbots to predictive analytics. Give your startup the edge with automation, personalization, and data-driven growth.',
     label: 'Startups',
     tags: ['AI', 'Machine Learning', 'Automation'],
+    image: '/ai.jpg',
   },
   {
     title: 'Mobile Apps',
@@ -36,6 +37,7 @@ const FEATURES = [
       'Sleek, user-first mobile apps built to drive adoption, retention, and revenue. From MVPs to full-scale launches, we help startups win in competitive markets.',
     label: 'Service',
     tags: ['IOS', 'Android', 'Flutter'],
+    image: '/mobile.jpg',
   },
 
   {
