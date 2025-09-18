@@ -672,7 +672,7 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                 <div className="flex h-[90%] flex-col justify-between text-[var(--color-card-foreground)]">
                   <div>
                     <h2
-                      className="m-0 mb-1 text-base font-normal"
+                      className="m-0 text-base font-normal"
                       style={
                         textAutoHide
                           ? ({
@@ -896,7 +896,7 @@ const MagicBento: React.FC<MagicBentoProps> = ({
               </div>
               <div className="flex flex-col text-[var(--color-card-foreground)]">
                 <h2
-                  className="m-0 mb-1 text-base font-normal"
+                  className="m-0 text-base font-normal"
                   style={
                     textAutoHide
                       ? ({
