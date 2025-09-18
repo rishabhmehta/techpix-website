@@ -314,7 +314,7 @@ const PillNav: React.FC<PillNavProps> = ({
         style={cssVars}
       >
         <Link
-          className="mr-2 inline-flex h-[var(--nav-h)] w-fit items-center justify-center overflow-hidden rounded-full bg-[var(--base,var(--muted))] p-2"
+          className="mr-2 inline-flex h-[var(--nav-h)] w-fit items-center justify-center overflow-hidden rounded-full bg-[var(--base,var(--muted))] p-2 [--brand-logo-color:var(--primary)] dark:[--brand-logo-color:white]"
           href={items[0].href}
           aria-label="Home"
           onMouseEnter={handleLogoEnter}
@@ -331,7 +331,7 @@ const PillNav: React.FC<PillNavProps> = ({
             height="100"
             className="size-8"
           />
-          <span className="ml-2 hidden text-base font-semibold sm:block">
+          <span className="text-primary ml-2 hidden text-base font-semibold sm:block dark:text-white">
             Techpix
           </span>
         </Link>

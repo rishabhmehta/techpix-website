@@ -2,6 +2,9 @@
 @import 'tw-animate-css';
 @import './design-tokens.css';
 
+/* Make Tailwind's `dark:` variant use class or data-theme selectors (works with next-themes) */
+@custom-variant dark (&:where(.dark &, [data-theme="dark"] &));
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
