@@ -119,7 +119,7 @@ const ParticleCard: React.FC<ParticleCardProps> = ({
       className="pointer-events-none absolute inset-0 p-[6px]"
       style={
         {
-          background: `radial-gradient(var(--glow-radius, 200px) circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(var(--glow-color, ${glowColor}), calc(var(--glow-intensity, 0) * 0.8)) 0%, rgba(var(--glow-color, ${glowColor}), calc(var(--glow-intensity, 0) * 0.4)) 30%, transparent 60%)`,
+          background: `radial-gradient(var(--glow-radius, 200px) circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(var(--glow-color, ${glowColor}), calc(var(--glow-intensity, 0) * 0.6)) 0%, rgba(var(--glow-color, ${glowColor}), calc(var(--glow-intensity, 0) * 0.25)) 30%, transparent 60%)`,
           borderRadius: 'inherit',
           // No mask: glow fills the whole card area
           transition: 'opacity 0.3s ease',
@@ -194,7 +194,7 @@ const ParticleCard: React.FC<ParticleCardProps> = ({
         });
 
         gsap.to(clone, {
-          opacity: 0.3,
+          opacity: 0.2,
           duration: 1.5,
           ease: 'power2.inOut',
           repeat: -1,
@@ -224,8 +224,8 @@ const ParticleCard: React.FC<ParticleCardProps> = ({
           transformPerspective: 1000,
         });
       }
-      // Add colored glow similar to previous CSS on hover
-      element.style.boxShadow = `0 8px 25px rgba(0,0,0,0.15), 0 0 30px rgba(${glowColor}, 0.25)`;
+      // Add colored glow similar to previous CSS on hover (softened)
+      element.style.boxShadow = `0 8px 25px rgba(0,0,0,0.15), 0 0 30px rgba(${glowColor}, 0.18)`;
     };
 
     const handleMouseLeave = () => {
@@ -308,7 +308,7 @@ const ParticleCard: React.FC<ParticleCardProps> = ({
         width: ${maxDistance * 2}px;
         height: ${maxDistance * 2}px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(${glowColor}, 0.4) 0%, rgba(${glowColor}, 0.2) 30%, transparent 70%);
+        background: radial-gradient(circle, rgba(${glowColor}, 0.3) 0%, rgba(${glowColor}, 0.15) 30%, transparent 70%);
         left: ${x - maxDistance}px;
         top: ${y - maxDistance}px;
         pointer-events: none;
@@ -398,11 +398,11 @@ const GlobalSpotlight: React.FC<GlobalSpotlightProps> = ({
       border-radius: 50%;
       pointer-events: none;
       background: radial-gradient(circle,
-        rgba(${glowColor}, 0.15) 0%,
-        rgba(${glowColor}, 0.08) 15%,
-        rgba(${glowColor}, 0.04) 25%,
-        rgba(${glowColor}, 0.02) 40%,
-        rgba(${glowColor}, 0.01) 65%,
+        rgba(${glowColor}, 0.12) 0%,
+        rgba(${glowColor}, 0.06) 15%,
+        rgba(${glowColor}, 0.03) 25%,
+        rgba(${glowColor}, 0.016) 40%,
+        rgba(${glowColor}, 0.008) 65%,
         transparent 70%
       );
       z-index: 200;
@@ -483,9 +483,9 @@ const GlobalSpotlight: React.FC<GlobalSpotlightProps> = ({
 
       const targetOpacity =
         minDistance <= proximity
-          ? 0.8
+          ? 0.6
           : minDistance <= fadeDistance
-            ? ((fadeDistance - minDistance) / (fadeDistance - proximity)) * 0.8
+            ? ((fadeDistance - minDistance) / (fadeDistance - proximity)) * 0.6
             : 0;
 
       gsap.to(spotlightRef.current, {
@@ -842,7 +842,7 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                     width: ${maxDistance * 2}px;
                     height: ${maxDistance * 2}px;
                     border-radius: 50%;
-                    background: radial-gradient(circle, rgba(${resolvedGlowColor}, 0.4) 0%, rgba(${resolvedGlowColor}, 0.2) 30%, transparent 70%);
+                    background: radial-gradient(circle, rgba(${resolvedGlowColor}, 0.3) 0%, rgba(${resolvedGlowColor}, 0.15) 30%, transparent 70%);
                     left: ${x - maxDistance}px;
                     top: ${y - maxDistance}px;
                     pointer-events: none;
@@ -872,7 +872,8 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                 el.addEventListener('click', handleClick);
                 el.addEventListener('mouseenter', () => {
                   if (shouldDisableAnimations) return;
-                  el.style.boxShadow = `0 8px 25px rgba(0,0,0,0.15), 0 0 30px rgba(${resolvedGlowColor}, 0.25)`;
+                  // softened colored glow on hover
+                  el.style.boxShadow = `0 8px 25px rgba(0,0,0,0.15), 0 0 30px rgba(${resolvedGlowColor}, 0.18)`;
                 });
               }}
             >
@@ -882,7 +883,7 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                   className="pointer-events-none absolute inset-0 p-[6px]"
                   style={
                     {
-                      background: `radial-gradient(var(--glow-radius, 200px) circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(var(--glow-color, ${resolvedGlowColor}), calc(var(--glow-intensity, 0) * 0.8)) 0%, rgba(var(--glow-color, ${resolvedGlowColor}), calc(var(--glow-intensity, 0) * 0.4)) 30%, transparent 60%)`,
+                      background: `radial-gradient(var(--glow-radius, 200px) circle at var(--glow-x, 50%) var(--glow-y, 50%), rgba(var(--glow-color, ${resolvedGlowColor}), calc(var(--glow-intensity, 0) * 0.6)) 0%, rgba(var(--glow-color, ${resolvedGlowColor}), calc(var(--glow-intensity, 0) * 0.25)) 30%, transparent 60%)`,
                       borderRadius: 'inherit',
                       // No mask: glow fills the whole card area
                       transition: 'opacity 0.3s ease',
