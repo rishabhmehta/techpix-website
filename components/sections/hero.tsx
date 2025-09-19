@@ -2,10 +2,11 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Rocket, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
 export function HeroSection() {
   return (
-    <section className="relative mx-auto flex w-full max-w-6xl flex-col items-center gap-9 overflow-hidden px-4 pt-24 pb-24 text-center md:pt-32">
+    <section className="relative mx-auto flex w-full flex-col items-center gap-9 overflow-hidden px-4 pt-24 pb-24 text-center md:pt-32">
       <div className="pointer-events-none absolute inset-0 z-0">
         {/* Soft radial glow background (adapts to theme) */}
         <div className="absolute inset-0 [background:radial-gradient(ellipse_at_top,_color-mix(in_srgb,_var(--color-primary)_24%,_transparent)_0%,_transparent_60%)] dark:[background:radial-gradient(ellipse_at_top,_color-mix(in_srgb,_var(--color-primary)_32%,_transparent)_0%,_transparent_55%)]" />
@@ -42,14 +43,14 @@ export function HeroSection() {
       </div>
       <div className="relative z-10 flex w-full max-w-6xl flex-col items-center gap-9">
         <Badge variant="accent" className="gap-1">
-          <Sparkles className="size-3" /> Building Digital Experiences
+          <Sparkles className="size-3" /> Your Exponential Growth Partner
         </Badge>
-        <p className="text-primary/80 dark:text-primary/70 text-xs font-medium tracking-[0.15em]">
+        {/* <p className="text-primary/80 dark:text-primary/70 text-xs font-medium tracking-[0.15em]">
           You grow your business. We’ll build scalable AI products fast.
-        </p>
+        </p> */}
 
         <h1 className="from-foreground via-foreground to-foreground/80 max-w-5xl bg-gradient-to-b bg-clip-text font-serif text-4xl leading-tight font-bold tracking-tight text-balance text-transparent md:text-5xl lg:text-6xl">
-          Engineering Scalable Platforms for a Connected Future
+          Driving Enterprise Growth Through Intelligent Digital Solutions
         </h1>
 
         <p className="text-muted-foreground max-w-2xl text-sm leading-relaxed text-balance md:text-base">
@@ -58,16 +59,14 @@ export function HeroSection() {
           confidence.
         </p>
         <div className="flex flex-col items-center gap-4 sm:flex-row">
-          <Button
-            className="shadow-primary/25 gap-2 text-sm shadow-md md:text-base"
-            onClick={() => {
-              document
-                .getElementById('cta')
-                ?.scrollIntoView({ behavior: 'smooth' });
-            }}
-          >
-            <Rocket className="size-4" /> Start a Project
-          </Button>
+          <Link href="#contact">
+            <Button
+              asChild
+              className="shadow-primary/25 gap-2 text-sm shadow-md md:text-base"
+            >
+              <Rocket className="size-4" /> Start a Project
+            </Button>
+          </Link>
           <Button
             variant="outline"
             className="border-primary/40 text-primary hover:border-primary/60 hover:bg-primary/10 text-sm md:text-base"
@@ -80,7 +79,7 @@ export function HeroSection() {
             View Work
           </Button>
         </div>
-        <ul className="mt-12 grid w-full grid-cols-2 gap-4 text-left text-xs md:grid-cols-4">
+        {/* <ul className="mt-12 grid w-full grid-cols-2 gap-4 text-left text-xs md:grid-cols-4">
           {[
             ['50+ Projects', 'Delivered across domains'],
             ['<150ms', 'Global median response time'],
@@ -95,7 +94,7 @@ export function HeroSection() {
               <p className="text-muted-foreground text-[11px]">{label}</p>
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     </section>
   );

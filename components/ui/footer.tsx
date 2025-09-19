@@ -4,7 +4,7 @@ const links = [
   { title: 'Services', href: '#services' },
   { title: 'Process', href: '#process' },
   { title: 'Projects', href: '#projects' },
-  { title: 'Team', href: '#team' },
+  // { title: 'Team', href: '#team' },
   { title: 'Contact', href: '#contact' },
 ];
 
@@ -15,7 +15,7 @@ export default function FooterSection() {
         <Link
           href="/"
           aria-label="Techpix home"
-          className="mx-auto block size-fit"
+          className="mx-auto flex size-fit flex-nowrap items-center justify-center"
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -24,6 +24,9 @@ export default function FooterSection() {
             className="mx-auto h-10 w-auto"
             height={40}
           />
+          <span className="text-primary ml-2 hidden text-lg font-bold sm:block dark:text-white">
+            Techpix
+          </span>
         </Link>
 
         <div className="my-8 flex flex-wrap justify-center gap-6">
@@ -39,7 +42,7 @@ export default function FooterSection() {
         </div>
 
         <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
-          <Link
+          {/* <Link
             href="https://x.com/techpix_in"
             target="_blank"
             rel="noopener noreferrer"
@@ -58,9 +61,9 @@ export default function FooterSection() {
                 d="M10.488 14.651L15.25 21h7l-7.858-10.478L20.93 3h-2.65l-5.117 5.886L8.75 3h-7l7.51 10.015L2.32 21h2.65zM16.25 19L5.75 5h2l10.5 14z"
               ></path>
             </svg>
-          </Link>
+          </Link> */}
           <Link
-            href="https://www.linkedin.com/company/techpix-in/"
+            href="https://www.linkedin.com/company/techpix"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
@@ -79,7 +82,7 @@ export default function FooterSection() {
               ></path>
             </svg>
           </Link>
-          <Link
+          {/* <Link
             href="https://www.facebook.com/"
             target="_blank"
             rel="noopener noreferrer"
@@ -163,7 +166,7 @@ export default function FooterSection() {
                 d="M16.6 5.82s.51.5 0 0A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"
               ></path>
             </svg>
-          </Link>
+          </Link> */}
         </div>
 
         <span className="text-muted-foreground block text-center text-sm">

@@ -6,6 +6,24 @@ const MagicBento = dynamic(() => import('@/components/MagicBento'), {
 
 const FEATURES = [
   {
+    title: 'AI-Powered Applications',
+    headline: 'Launch smarter, scale faster',
+    description:
+      'Tailored AI solutions that transform ideas into intelligent products — from chatbots to predictive analytics. Give your startup the edge with automation, personalization, and data-driven growth.',
+    label: 'Startups',
+    tags: ['AI', 'Machine Learning', 'Automation'],
+    // image: '/ai.jpg',
+  },
+  {
+    title: 'Mobile Apps',
+    headline: ' Go where your customers are.',
+    description:
+      'Sleek, user-first mobile apps built to drive adoption, retention, and revenue. From MVPs to full-scale launches, we help startups win in competitive markets.',
+    label: 'Service',
+    tags: ['IOS', 'Android', 'Flutter'],
+    // image: '/mobile.jpg',
+  },
+  {
     title: 'Enterprise Platforms',
     headline: 'Scale with confidence.',
     description:
@@ -20,24 +38,6 @@ const FEATURES = [
       'Optimized deployments and automated workflows that keep your systems fast, reliable, and ready for scale.',
     label: 'Service',
     tags: ['AWS', 'Azure', 'GCP', 'CI/CD'],
-  },
-  {
-    title: 'AI-Powered Applications',
-    headline: 'Launch smarter, scale faster',
-    description:
-      'Tailored AI solutions that transform ideas into intelligent products — from chatbots to predictive analytics. Give your startup the edge with automation, personalization, and data-driven growth.',
-    label: 'Startups',
-    tags: ['AI', 'Machine Learning', 'Automation'],
-    image: '/ai.jpg',
-  },
-  {
-    title: 'Mobile Apps',
-    headline: ' Go where your customers are.',
-    description:
-      'Sleek, user-first mobile apps built to drive adoption, retention, and revenue. From MVPs to full-scale launches, we help startups win in competitive markets.',
-    label: 'Service',
-    tags: ['IOS', 'Android', 'Flutter'],
-    image: '/mobile.jpg',
   },
 
   {

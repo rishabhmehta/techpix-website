@@ -1,7 +1,7 @@
 import { HeroSection } from '@/components/sections/hero';
 import { FeaturesSection } from '@/components/sections/features';
 import { ProcessSection } from '@/components/sections/process';
-import { TeamSection } from '@/components/sections/team';
+// import { TeamSection } from '@/components/sections/team';
 import { ProjectsSection } from '@/components/sections/projects';
 import { ContactSection } from '@/components/sections/contact';
 
@@ -12,7 +12,7 @@ export default function Home() {
       <FeaturesSection />
       <ProcessSection />
       <ProjectsSection />
-      <TeamSection />
+      {/* <TeamSection /> */}
       <ContactSection />
     </main>
   );

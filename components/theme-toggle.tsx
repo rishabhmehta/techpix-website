@@ -2,9 +2,12 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Button, type ButtonProps } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
-export function ThemeToggle() {
+export function ThemeToggle(
+  props: Partial<ButtonProps> & { className?: string } = {},
+) {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -13,12 +16,13 @@ export function ThemeToggle() {
 
   return (
     <Button
-      size="icon"
-      variant="outline"
-      aria-label="Toggle theme"
+      size={props.size ?? 'icon'}
+      variant={props.variant ?? 'outline'}
+      aria-label={props['aria-label'] ?? 'Toggle theme'}
       onClick={() => setTheme(current === 'dark' ? 'light' : 'dark')}
-      className="relative cursor-pointer"
+      className={cn('relative cursor-pointer', props.className)}
       disabled={!mounted}
+      {...props}
     >
       {current === 'dark' ? (
         <Sun className="size-4" />

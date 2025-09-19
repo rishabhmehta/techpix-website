@@ -1,6 +1,6 @@
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ContactDrawer } from '@/components/contact-drawer';
+// import { ContactDrawer } from '@/components/contact-drawer';
 
 export function ContactSection() {
   return (
@@ -23,7 +23,7 @@ export function ContactSection() {
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
           <a
-            href="https://calendly.com/techpix/30min"
+            href="https://calendly.com/hi-techpix/30min"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -37,7 +37,7 @@ export function ContactSection() {
             <a href="mailto:hi@techpix.in">Email Us</a>
           </Button>
 
-          <ContactDrawer />
+          {/* <ContactDrawer /> */}
         </div>
       </div>
     </section>

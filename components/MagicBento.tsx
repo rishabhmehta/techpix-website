@@ -1,6 +1,6 @@
 'use client';
 import React, { useRef, useEffect, useCallback, useState } from 'react';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { gsap } from 'gsap';
 import { Badge } from './ui/badge';
 
@@ -532,7 +532,7 @@ type BentoCardGridProps = {
 const BentoCardGrid: React.FC<BentoCardGridProps> = ({ children, gridRef }) => (
   <div
     ref={gridRef}
-    className="bento-section mx-auto grid w-full max-w-[54em] grid-cols-1 gap-2 p-3 text-[clamp(1rem,0.9rem+0.5vw,1.5rem)] select-none sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-5"
+    className="bento-section mx-auto grid w-full max-w-[54em] grid-cols-1 gap-2 p-3 text-[clamp(1rem,0.9rem+0.5vw,1.5rem)] select-none sm:grid-cols-2 lg:grid-cols-3"
   >
     {children}
   </div>
@@ -614,12 +614,13 @@ const MagicBento: React.FC<MagicBentoProps> = ({
         {cardsToRender.map((card, index) => {
           // Grid positioning rules that previously relied on nth-child selectors
           const layoutClasses = [
-            index === 0 ? 'lg:col-span-1 lg:row-span-2' : '',
-            index === 1 ? 'lg:col-span-1 lg:row-span-2' : '',
-            index === 2 ? 'lg:col-span-2 lg:row-span-3' : '',
-            index === 3 ? 'lg:col-span-2 lg:row-span-3' : '',
-            index === 4 ? 'lg:col-span-1 lg:row-span-2' : '',
-            index === 5 ? 'lg:col-span-1 lg:row-span-2' : '',
+            // index === 0 ? 'lg:col-span-1 lg:row-span-2' : '',
+            // index === 1 ? 'lg:col-span-1 lg:row-span-2' : '',
+            // index === 2 ? 'lg:col-span-2 lg:row-span-3' : '',
+            // index === 3 ? 'lg:col-span-2 lg:row-span-3' : '',
+            // index === 4 ? 'lg:col-span-1 lg:row-span-2' : '',
+            // index === 5 ? 'lg:col-span-1 lg:row-span-2' : '',
+            'lg:col-span-1',
           ]
             .filter(Boolean)
             .join(' ');
@@ -666,13 +667,13 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                 style={cardStyle}
                 showGlowBorder={enableBorderGlow}
               >
-                <div className="mb-2 flex justify-between gap-3 text-[var(--color-card-foreground)]">
+                {/* <div className="mb-2 flex justify-between gap-3 text-[var(--color-card-foreground)]">
                   <Badge variant="default">{card.label}</Badge>
-                </div>
+                </div> */}
                 <div className="flex h-[90%] flex-col justify-between text-[var(--color-card-foreground)]">
                   <div>
                     <h2
-                      className="m-0 text-base font-normal"
+                      className="m-0 text-base font-bold"
                       style={
                         textAutoHide
                           ? ({
@@ -720,7 +721,7 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                     >
                       {card.description}
                     </p>
-                    {card.image && (
+                    {/* {card.image && (
                       <div className="mt-3 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-black">
                         <div
                           className="relative w-full"
@@ -736,7 +737,7 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                           />
                         </div>
                       </div>
-                    )}
+                    )} */}
                   </div>
 
                   {card.tags && card.tags.length > 0 && (
@@ -892,12 +893,12 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                   }
                 />
               )}
-              <div className="flex justify-between gap-3 text-[var(--color-card-foreground)]">
+              {/* <div className="flex justify-between gap-3 text-[var(--color-card-foreground)]">
                 <div className="text-base">{card.label}</div>
-              </div>
+              </div> */}
               <div className="flex flex-col text-[var(--color-card-foreground)]">
                 <h2
-                  className="m-0 text-base font-normal"
+                  className="m-0 text-base font-bold"
                   style={
                     textAutoHide
                       ? ({
@@ -944,7 +945,7 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                 >
                   {card.description}
                 </p>
-                {card.image && (
+                {/* {card.image && (
                   <div className="mt-3 overflow-hidden rounded-xl border border-[var(--color-border)] bg-black/5">
                     <div
                       className="relative w-full"
@@ -960,7 +961,7 @@ const MagicBento: React.FC<MagicBentoProps> = ({
                       />
                     </div>
                   </div>
-                )}
+                )} */}
                 {card.tags && (
                   <div className="mt-2 flex flex-wrap gap-1">
                     {card.tags.map((tag, idx) => (
