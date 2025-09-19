@@ -26,6 +26,9 @@ jobs:
       - name: Build static export
         run: yarn build
 
+      - name: Add CNAME
+        run: echo "www.techpix.in" > out/CNAME
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
