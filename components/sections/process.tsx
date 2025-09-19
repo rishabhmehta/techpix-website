@@ -7,7 +7,9 @@ import {
   Repeat,
   Rocket,
   ChevronRight,
+  ChevronDown,
   ArrowDown,
+  RefreshCw,
 } from 'lucide-react';
 
 type Step = {
@@ -66,7 +68,7 @@ const ITERATION: Step[] = [
     ],
   },
   {
-    icon: Repeat,
+    icon: RefreshCw,
     title: 'Feedback Cycle',
     points: [
       'Conduct regular internal sprints.',
@@ -98,21 +100,24 @@ export function ProcessSection() {
       <div className="bg-card/60 relative overflow-hidden rounded-2xl border p-6 shadow-sm">
         <div className="mb-6 flex items-center justify-between">
           <h3 className="text-lg font-semibold">Foundational Process</h3>
-          <span className="text-muted-foreground text-xs">
+          <span className="text-muted-foreground text-end text-xs">
             Duration: 1–2 weeks
           </span>
         </div>
 
         <div className="-mx-2 pb-2">
           <ol
-            className="mx-2 flex flex-wrap items-start justify-center gap-6 md:gap-8"
+            className="mx-2 flex flex-col items-center gap-6 md:flex-row md:flex-wrap md:items-start md:justify-center md:gap-8"
             aria-label="Foundational steps timeline"
           >
             {FOUNDATION.map(({ icon: Icon, title, points }, idx) => (
-              <li key={title} className="flex items-start">
-                <div className="flex w-[130px] flex-col items-center text-center sm:w-[146px] md:w-[160px]">
+              <li
+                key={title}
+                className="flex flex-col items-center md:flex-row md:items-start"
+              >
+                <div className="flex w-[130px] flex-col items-center text-center md:w-[160px]">
                   <div className="bg-primary/10 text-primary ring-primary/20 flex size-16 items-center justify-center rounded-full ring-1 md:size-20">
-                    <Icon className="size-6" />
+                    <Icon className="size-12 md:size-6" />
                   </div>
                   <div className="mt-3 text-sm font-medium md:text-[15px]">
                     {title}
@@ -122,11 +127,21 @@ export function ProcessSection() {
                   </p>
                 </div>
                 {idx < FOUNDATION.length - 1 && (
-                  <div className="mx-2 hidden self-start md:mt-8 md:flex md:items-center">
-                    <div className="bg-border h-px w-8" />
-                    <ChevronRight className="text-muted-foreground/70 ml-1 size-4" />
-                    <div className="bg-border ml-1 h-px w-8" />
-                  </div>
+                  <>
+                    {/* Mobile: vertical connector with downward arrow */}
+                    <div className="my-3 flex flex-col items-center md:hidden">
+                      <div className="bg-border h-4 w-px" />
+                      <ChevronDown className="text-muted-foreground/70 my-1 size-4" />
+                      <div className="bg-border h-4 w-px" />
+                    </div>
+
+                    {/* ≥ sm: horizontal connector with right arrow */}
+                    <div className="mx-2 hidden self-start md:mt-8 md:flex md:items-center">
+                      <div className="bg-border h-px w-8" />
+                      <ChevronRight className="text-muted-foreground/70 ml-1 size-4" />
+                      <div className="bg-border ml-1 h-px w-8" />
+                    </div>
+                  </>
                 )}
               </li>
             ))}
@@ -143,9 +158,9 @@ export function ProcessSection() {
 
       {/* Iterative process – circular dashed items */}
       <div className="bg-card/60 relative overflow-hidden rounded-2xl border p-6 shadow-sm">
-        <div className="mb-8 flex items-center justify-between">
+        <div className="mb-8 flex items-center justify-between gap-4">
           <h3 className="text-lg font-semibold">Iterative Process</h3>
-          <span className="text-muted-foreground text-xs">
+          <span className="text-muted-foreground text-end text-xs">
             Duration: 1–2 weeks sprint
           </span>
         </div>
@@ -168,7 +183,7 @@ export function ProcessSection() {
 
               {/* subtle curved/looping hint between items on larger screens */}
               {idx === 0 && (
-                <Repeat className="text-muted-foreground/50 absolute top-12 -right-8 hidden rotate-12 md:block" />
+                <Repeat className="text-muted-foreground/50 mt-8 rotate-90 md:absolute md:top-12 md:-right-9 md:mt-0 md:rotate-12" />
               )}
             </div>
           ))}
