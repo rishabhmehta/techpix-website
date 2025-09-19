@@ -13,7 +13,7 @@ export function HeroSection() {
 
         {/* Blurred color orbs for depth */}
         <div className="absolute -top-24 -left-24 h-80 w-80 rounded-full bg-[color-mix(in_oklab,_var(--color-accent)_35%,_transparent)] blur-3xl" />
-        <div className="absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-[color-mix(in_oklab,_var(--color-primary)_30%,_transparent)] blur-3xl" />
+        {/* <div className="absolute -right-24 -bottom-24 h-72 w-72 rounded-full bg-[color-mix(in_oklab,_var(--color-primary)_30%,_transparent)] blur-3xl" /> */}
 
         {/* Subtle grid texture with radial mask fade */}
         <svg
