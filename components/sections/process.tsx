@@ -136,9 +136,9 @@ export function ProcessSection() {
 
       {/* Down arrow separator */}
       <div className="my-8 flex items-center justify-center">
-        <div className="bg-border h-px w-10" />
-        <ArrowDown className="text-muted-foreground/70 mx-3 size-5" />
-        <div className="bg-border h-px w-10" />
+        {/* <div className="bg-border h-px w-10" /> */}
+        <ArrowDown className="text-muted-foreground/70 mx-3 size-6" />
+        {/* <div className="bg-border h-px w-10" /> */}
       </div>
 
       {/* Iterative process – circular dashed items */}
