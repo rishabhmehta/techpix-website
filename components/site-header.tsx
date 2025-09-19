@@ -27,11 +27,11 @@ export function SiteHeader() {
         <div className="relative mx-auto flex h-full max-w-7xl items-center justify-between px-4">
           {/* Pill background container to keep header background on mobile */}
           <div className="flex w-full items-center justify-between rounded-full border border-[var(--border)] p-1 pr-2 pl-2 [box-shadow:0_6px_16px_color-mix(in_oklab,var(--color-ring),transparent_88%)] [background:var(--base,var(--background))] dark:[border-color:color-mix(in_oklab,var(--border),transparent_20%)] dark:[box-shadow:0_4px_12px_rgba(0,0,0,0.18)] dark:[background:var(--base,var(--muted))]">
-            {/* Left: Logo only (no text) */}
+            {/* Left: Logo with text */}
             <Link
               href="/"
               aria-label="Home"
-              className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full"
+              className="inline-flex h-10 w-fit items-center justify-center overflow-hidden rounded-full p-2"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
@@ -41,6 +41,9 @@ export function SiteHeader() {
                 height={40}
                 className="size-7"
               />
+              <span className="ml-2 text-base font-semibold text-zinc-900 dark:text-zinc-50">
+                Techpix
+              </span>
             </Link>
 
             {/* Right: Theme toggle + Hamburger */}
