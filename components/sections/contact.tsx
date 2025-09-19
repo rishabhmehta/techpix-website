@@ -32,7 +32,7 @@ export function ContactSection() {
           <Button
             asChild
             variant="outline"
-            className="border-primary/40 text-primary hover:border-primary/60 hover:bg-primary/10"
+            className="border-primary/40 text-primary hover:border-primary/60 hover:bg-primary/10 hover:dark:bg-primary/20 hover:text-black hover:dark:text-white"
           >
             <a href="mailto:hi@techpix.in">Email Us</a>
           </Button>
