@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 import {
   Compass,
   FileText,
@@ -9,7 +10,6 @@ import {
   ChevronRight,
   ChevronDown,
   ArrowDown,
-  RefreshCw,
 } from 'lucide-react';
 
 type Step = {
@@ -68,7 +68,14 @@ const ITERATION: Step[] = [
     ],
   },
   {
-    icon: RefreshCw,
+    icon: (props: { className?: string }) => (
+      //  eslint-disable-next-line @next/next/no-img-element
+      <img
+        src="/feedback.png"
+        className={cn(props.className)}
+        alt="Feedback cycle"
+      />
+    ),
     title: 'Feedback Cycle',
     points: [
       'Conduct regular internal sprints.',

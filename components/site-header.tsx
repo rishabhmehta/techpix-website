@@ -1,7 +1,7 @@
 // import PillNav from './PillNav';
 import { MenuFluid } from './ui/menu-fluid';
 import Link from 'next/link';
-import Image from 'next/image';
+// import Image from 'next/image';
 import { ThemeToggle } from '@/components/theme-toggle';
 import {
   Drawer,
@@ -33,7 +33,8 @@ export function SiteHeader() {
               aria-label="Home"
               className="inline-flex h-10 w-10 items-center justify-center overflow-hidden rounded-full"
             >
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/logo.png"
                 alt="Company Logo"
                 width={40}
@@ -106,7 +107,8 @@ export function SiteHeader() {
                 aria-label="Home"
                 className="inline-flex h-10 w-fit items-center justify-center overflow-hidden rounded-full p-2"
               >
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src="/logo.png"
                   alt="Company Logo"
                   width={100}
