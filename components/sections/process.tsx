@@ -109,7 +109,7 @@ export function ProcessSection() {
             aria-label="Foundational steps timeline"
           >
             {FOUNDATION.map(({ icon: Icon, title, points }, idx) => (
-              <li key={title} className="flex items-center">
+              <li key={title} className="flex items-start">
                 <div className="flex w-[130px] flex-col items-center text-center sm:w-[146px] md:w-[160px]">
                   <div className="bg-primary/10 text-primary ring-primary/20 flex size-16 items-center justify-center rounded-full ring-1 md:size-20">
                     <Icon className="size-6" />
@@ -122,7 +122,7 @@ export function ProcessSection() {
                   </p>
                 </div>
                 {idx < FOUNDATION.length - 1 && (
-                  <div className="mx-2 hidden items-center md:flex">
+                  <div className="mx-2 hidden self-start md:mt-8 md:flex md:items-center">
                     <div className="bg-border h-px w-8" />
                     <ChevronRight className="text-muted-foreground/70 ml-1 size-4" />
                     <div className="bg-border ml-1 h-px w-8" />
@@ -168,7 +168,7 @@ export function ProcessSection() {
 
               {/* subtle curved/looping hint between items on larger screens */}
               {idx === 0 && (
-                <Repeat className="text-muted-foreground/50 absolute top-8 -right-8 hidden rotate-12 md:block" />
+                <Repeat className="text-muted-foreground/50 absolute top-12 -right-8 hidden rotate-12 md:block" />
               )}
             </div>
           ))}
