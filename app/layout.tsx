@@ -16,11 +16,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Techpix – Digital Product Engineering Studio',
+  title: 'Techpix - Your Exponential Growth Partner',
   description:
-    'Your Exponential Growth Partner. Techpix builds high‑performance websites, mobile apps, backend services, ERPs & real‑time dashboards with craftsmanship and speed.',
+    'Techpix builds high‑performance AI powered applications, websites, mobile apps, backend services, ERPs & real‑time dashboards with craftsmanship and speed with AI assisted development.',
   keywords: [
     'Techpix',
+    'AI Development',
     'software development',
     'web apps',
     'mobile apps',
@@ -29,21 +30,7 @@ export const metadata: Metadata = {
     'dashboards',
     'product engineering',
   ],
-  metadataBase: new URL('https://techpix.example.com'),
-  openGraph: {
-    title: 'Techpix – Digital Product Engineering Studio',
-    description:
-      'Your Exponential Growth Partner – Websites, Mobile Apps, Backends, ERPs & Dashboards engineered with quality and speed.',
-    url: 'https://techpix.example.com',
-    siteName: 'Techpix',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Techpix – Digital Product Engineering Studio',
-    description:
-      'Your Exponential Growth Partner – Websites, Mobile Apps, Backends, ERPs & Dashboards engineered with quality and speed.',
-  },
+  metadataBase: new URL('https://techpix.in'),
 };
 
 export default function RootLayout({
